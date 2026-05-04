@@ -16,8 +16,8 @@ spring:
   mail:
     host: localhost
     port: 1025
-    username: ali
-    password: ali
+    username: sathsara
+    password: sathsara
     properties:
       mail:
         smtp:
@@ -28,14 +28,19 @@ spring:
         connectiontimeout: 5000
         timeout: 3000
         writetimeout: 5000
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: "http://localhost:9090/realms/book-social-network"
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: "http://localhost:9090/realms/book-social-network"
 application:
-  file:
-    uploads:
-      photos-output-path: ./uploads
+  security:
+    jwt:
+      secret-key: Kq7mZ3y9F2vT8cX1pQ6LwB4eN0rJdHsU5YkGzA9mVtE=
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
 server:
   port: 8088
