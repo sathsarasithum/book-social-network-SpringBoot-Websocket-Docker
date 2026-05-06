@@ -26,6 +26,11 @@ public class BeansConfig {
 //    }
 
     @Bean
+    public ApplicationAuditAware auditorAware() {
+        return new ApplicationAuditAware();
+    }
+
+    @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authProvider =
                 new DaoAuthenticationProvider(userDetailsService);
