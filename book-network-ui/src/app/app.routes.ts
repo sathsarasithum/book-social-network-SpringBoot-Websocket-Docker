@@ -1,9 +1,3 @@
-// import { Routes } from '@angular/router';
-
-// export const routes: Routes = [
-//   { path: '', redirectTo: 'books', pathMatch: 'full' }
-// ];
-
 import { Routes } from '@angular/router';
 
 import { LoginComponent } from './pages/login/login';
