@@ -1,16 +1,34 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './pages/login/login';
+// import { Routes } from '@angular/router';
 
-const routes: Routes = [
+// export const routes: Routes = [
+//   { path: '', redirectTo: 'books', pathMatch: 'full' }
+// ];
+
+import { Routes } from '@angular/router';
+
+import { LoginComponent } from './pages/login/login';
+//import { RegisterComponent } from './pages/register/register';
+//import { ActivateAccountComponent } from './pages/activate-account/activate-account';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+
   {
     path: 'login',
     component: LoginComponent
-  }];
+  },
 
+  // {
+  //   path: 'register',
+  //   component: RegisterComponent
+  // },
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+  // {
+  //   path: 'activate-account',
+  //   component: ActivateAccountComponent
+  // }
+];

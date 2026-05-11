@@ -1,18 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {AuthenticationRequest} from '../../services/models/authentication-request';
-import {KeycloakService} from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
 
   authRequest: AuthenticationRequest = {email: '', password: ''};
   errorMsg: Array<string> = [];
 
-  login(){
+  login() {
+    console.log(this.authRequest);
+  }
 
-    }
+  register() {
+    console.log("register clicked");
+  }
+
+
 }
