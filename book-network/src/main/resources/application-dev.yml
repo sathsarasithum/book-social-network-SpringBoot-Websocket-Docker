@@ -34,6 +34,9 @@ spring:
 #        jwt:
 #          issuer-uri: "http://localhost:9090/realms/book-social-network"
 application:
+  file:
+    uploads:
+      photos-output-path: ./uploads
   security:
     jwt:
       secret-key: Kq7mZ3y9F2vT8cX1pQ6LwB4eN0rJdHsU5YkGzA9mVtE=

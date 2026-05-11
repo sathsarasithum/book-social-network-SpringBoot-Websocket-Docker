@@ -27,8 +27,8 @@ public class FileStorageService {
 
     public String saveFile(
             @Nonnull MultipartFile sourceFile,
-            @Nonnull String userId,
-            @Nonnull Book book
+            @Nonnull Integer userId
+            //@Nonnull Book book
             ) {
         final String fileUploadSubPath = "users" + separator + userId;
         return uploadFile(sourceFile, fileUploadSubPath);
