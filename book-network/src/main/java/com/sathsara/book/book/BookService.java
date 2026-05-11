@@ -2,6 +2,7 @@ package com.sathsara.book.book;
 
 import com.sathsara.book.common.PageResponse;
 import com.sathsara.book.exception.OperationNotPermittedException;
+import com.sathsara.book.file.FileStorageService;
 import com.sathsara.book.history.BookTransactionHistory;
 import com.sathsara.book.history.BookTransactionHistoryRepository;
 import com.sathsara.book.user.User;
@@ -31,7 +32,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final BookTransactionHistoryRepository transactionHistoryRepository;
-    //private final FileStorageService fileStorageService;
+    private final FileStorageService fileStorageService;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
@@ -182,7 +183,7 @@ public class BookService {
             throw new OperationNotPermittedException("You cannot borrow or return your own book");
         }
 
-        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndUserId(bookId, connectedUser.getName())
+        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndUserId(bookId, user.getId())
                 .orElseThrow(() -> new OperationNotPermittedException("You did not borrow this book"));
 
         bookTransactionHistory.setReturned(true);
@@ -200,20 +201,20 @@ public class BookService {
             throw new OperationNotPermittedException("You cannot approve the return of a book you do not own");
         }
 
-        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndOwnerId(bookId, connectedUser.getName())
+        BookTransactionHistory bookTransactionHistory = transactionHistoryRepository.findByBookIdAndOwnerId(bookId, user.getId())
                 .orElseThrow(() -> new OperationNotPermittedException("The book is not returned yet. You cannot approve its return"));
 
         bookTransactionHistory.setReturnApproved(true);
         return transactionHistoryRepository.save(bookTransactionHistory).getId();
     }
 
-//    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
-//        Book book = bookRepository.findById(bookId)
-//                .orElseThrow(() -> new EntityNotFoundException("No book found with ID:: " + bookId));
-//        User user = ((User) connectedUser.getPrincipal());
-//        var profilePicture = fileStorageService.saveFile(file, connectedUser.getName());
-//        book.setBookCover(profilePicture);
-//        bookRepository.save(book);
-//    }
+    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("No book found with ID:: " + bookId));
+        User user = ((User) connectedUser.getPrincipal());
+        var profilePicture = fileStorageService.saveFile(file, connectedUser.getName());
+        book.setBookCover(profilePicture);
+        bookRepository.save(book);
+    }
 }
 

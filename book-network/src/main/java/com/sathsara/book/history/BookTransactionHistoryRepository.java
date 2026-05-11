@@ -51,7 +51,7 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             AND transaction.returned = false
             AND transaction.returnApproved = false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndUserId(Integer bookId, String name);
+    Optional<BookTransactionHistory> findByBookIdAndUserId(Integer bookId, Integer userId);
 
 
     @Query("""
@@ -62,5 +62,5 @@ public interface BookTransactionHistoryRepository extends JpaRepository<BookTran
             AND transaction.returned = true
             AND transaction.returnApproved = false
             """)
-    Optional<BookTransactionHistory> findByBookIdAndOwnerId(Integer bookId, String name);
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(Integer bookId, Integer userId);
 }
