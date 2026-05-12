@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { email } from '@angular/forms/signals';
-import { first } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RegistrationRequest } from '../../services/models/registration-request';
