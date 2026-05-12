@@ -1,0 +1,54 @@
+import { Component } from '@angular/core';
+import { email } from '@angular/forms/signals';
+import { first } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RegistrationRequest } from '../../services/models/registration-request';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/services/authentication.service';
+
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  templateUrl: './register.html',
+  styleUrl: './register.scss',
+})
+export class Register {
+
+  registerRequest: RegistrationRequest = {
+    email: '',
+    firstname: '',
+    lastname: '', 
+    password: ''
+  };
+
+  errorMsg: Array<string> = [];
+
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService
+  ) {
+  }
+
+  login() {
+    this.router.navigate(['login']);
+  }
+
+  register() {
+    this.errorMsg = [];
+    this.authService.register({
+      body: this.registerRequest
+    })
+      .subscribe({
+        next: () => {
+          this.router.navigate(['activate-account']);
+        },
+        error: (err) => {
+          this.errorMsg = err.error.validationErrors;
+        }
+      });
+  }
+  
+
+}
